@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_PBiL4LdJEeytqu0yoeWGRg">
+  <imports href="../../metamodels/genericTestModel.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_UELmYLdJEeytqu0yoeWGRg" name="testAddWithoutContainment">
+    <lhs xmi:id="_UFsCQLdJEeytqu0yoeWGRg" name="Lhs">
+      <nodes xmi:id="_VnLqMLdJEeytqu0yoeWGRg">
+        <type href="../../metamodels/genericTestModel.ecore#//A"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_UFsCQbdJEeytqu0yoeWGRg" name="Rhs">
+      <nodes xmi:id="_VnLqMbdJEeytqu0yoeWGRg" incoming="_bwrYALdJEeytqu0yoeWGRg">
+        <type href="../../metamodels/genericTestModel.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="_asORYLdJEeytqu0yoeWGRg" outgoing="_bwrYALdJEeytqu0yoeWGRg">
+        <type href="../../metamodels/genericTestModel.ecore#//B"/>
+      </nodes>
+      <edges xmi:id="_bwrYALdJEeytqu0yoeWGRg" source="_asORYLdJEeytqu0yoeWGRg" target="_VnLqMbdJEeytqu0yoeWGRg">
+        <type href="../../metamodels/genericTestModel.ecore#//B/b_to_a"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_VnMRQLdJEeytqu0yoeWGRg" origin="_VnLqMLdJEeytqu0yoeWGRg" image="_VnLqMbdJEeytqu0yoeWGRg"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_kJKmYLmNEeyj7c3VUwfPBA" name="addSingleRefTwice">
+    <lhs xmi:id="_kJOQwLmNEeyj7c3VUwfPBA" name="Lhs">
+      <nodes xmi:id="_zXzTwLmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="_zoO8cLmNEeyj7c3VUwfPBA" outgoing="_4vLBELmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//B"/>
+      </nodes>
+      <nodes xmi:id="_3evT8LmNEeyj7c3VUwfPBA" incoming="_4vLBELmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//A"/>
+      </nodes>
+      <edges xmi:id="_4vLBELmNEeyj7c3VUwfPBA" source="_zoO8cLmNEeyj7c3VUwfPBA" target="_3evT8LmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//B/b_to_a"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_kJOQwbmNEeyj7c3VUwfPBA" name="Rhs">
+      <nodes xmi:id="_zX0h4LmNEeyj7c3VUwfPBA" incoming="_0ouwILmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//A"/>
+      </nodes>
+      <nodes xmi:id="_zoPjgLmNEeyj7c3VUwfPBA" outgoing="_0ouwILmNEeyj7c3VUwfPBA _4vLBEbmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//B"/>
+      </nodes>
+      <nodes xmi:id="_3evT8bmNEeyj7c3VUwfPBA" incoming="_4vLBEbmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//A"/>
+      </nodes>
+      <edges xmi:id="_0ouwILmNEeyj7c3VUwfPBA" source="_zoPjgLmNEeyj7c3VUwfPBA" target="_zX0h4LmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//B/b_to_a"/>
+      </edges>
+      <edges xmi:id="_4vLBEbmNEeyj7c3VUwfPBA" source="_zoPjgLmNEeyj7c3VUwfPBA" target="_3evT8bmNEeyj7c3VUwfPBA">
+        <type href="../../metamodels/genericTestModel.ecore#//B/b_to_a"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_zX0h4bmNEeyj7c3VUwfPBA" origin="_zXzTwLmNEeyj7c3VUwfPBA" image="_zX0h4LmNEeyj7c3VUwfPBA"/>
+    <mappings xmi:id="_zoPjgbmNEeyj7c3VUwfPBA" origin="_zoO8cLmNEeyj7c3VUwfPBA" image="_zoPjgLmNEeyj7c3VUwfPBA"/>
+    <mappings xmi:id="_3evT8rmNEeyj7c3VUwfPBA" origin="_3evT8LmNEeyj7c3VUwfPBA" image="_3evT8bmNEeyj7c3VUwfPBA"/>
+  </units>
+</henshin:Module>
