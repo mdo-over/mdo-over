@@ -34,14 +34,13 @@ jobs:
       working-directory: ./
       
     - name: Push JavaDoc to github.io page
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          SSH_DEPLOY_KEY: ${{ secrets.MDO_OVER_COMMUNICATION }}
-        with:
-          source-directory: './target/apidocs'
-          destination-github-username: 'leative'
-          destination-repository-name: 'mdo-over.github.io'
-          destination-repository-username: 'mdo-over'
-          user-email: s-john@leative.de
-          target-branch: main
-          target-directory:./apidocs
+      uses: andstor/copycat-action@v3
+      with:
+        personal_token: ${{ secrets.MDO_OVER_COMMUNICATION }}
+        src_branch: main
+        src_path: ./target/apidocs
+        dst_branch: main
+        dst_path: /apidocs
+        dst_owner: leative
+        dst_repo_name: mdo-over.github.io
+        clean: true
