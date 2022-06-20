@@ -41,6 +41,6 @@ jobs:
         src_path: ./target/apidocs
         dst_branch: main
         dst_path: /apidocs
-        dst_owner: leative
+        dst_owner: mdo-over
         dst_repo_name: mdo-over.github.io
         clean: true
