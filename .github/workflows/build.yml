@@ -34,7 +34,7 @@ jobs:
       working-directory: ./
       
     - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@main
+        uses: cpina/github-action-push-to-another-repository@ssh-deploy-key
         env:
           SSH_DEPLOY_KEY: ${{ secrets.MDO_OVER_COMMUNICATION }}
         with:
