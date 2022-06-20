@@ -30,7 +30,7 @@ jobs:
        
       # Builds and deploys artifacts and javadoc locally on the github machine
     - name: Build with Maven
-      run: mvn deploy
+      run: mvn package
       working-directory: ./
       
     - name: Push JavaDoc to github.io page
