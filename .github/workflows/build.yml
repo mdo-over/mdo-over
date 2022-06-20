@@ -33,14 +33,15 @@ jobs:
       run: mvn package
       working-directory: ./
       
-    - name: Push JavaDoc to github.io page
-      uses: andstor/copycat-action@v3
-      with:
-        personal_token: ${{ secrets.MDO_OVER_COMMUNICATION }}
-        src_branch: main
-        src_path: ./target/apidocs
-        dst_branch: main
-        dst_path: /apidocs
-        dst_owner: mdo-over
-        dst_repo_name: mdo-over.github.io
-        clean: true
+    - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.MDO_OVER_COMMUNICATION }}
+        with:
+          source-directory: 'apidocs'
+          destination-github-username: 'mdo-over'
+          destination-repository-name: 'mdo-over.github.io'
+          user-email: stefan.john@uni-marburg.de
+          target-branch: main
+          target-directory: 'apidocs'
+          commit-message: 'update to javadoc'
