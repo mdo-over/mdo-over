@@ -15,7 +15,7 @@
   
   <repositories>
     <repository>
-      <id>p2Dependencies</id>
+      <id>m2Dependencies</id>
 	  <url>https://mdo-over.github.io/m2repo</url>
     </repository>
   </repositories>
