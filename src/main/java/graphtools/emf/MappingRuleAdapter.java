@@ -21,14 +21,14 @@ import model.modelgraph.ModelGraphElement;
 import model.modelgraph.ModelNode;
 
 public class MappingRuleAdapter extends HenshinRuleAdapter {
-	
+
 	private final Map<ModelNode, Node> originToRuleMap;
 	private final Map<ModelNode, Node> imageToRuleMap;
 
 	/**
-	 * Creates an adapter wrapping a rule implementing the given <code>mapping</code>. Mapped elements become
-	 * preserved-nodes in the rule. Unmapped elements in the image graph become created-nodes. Unmapped elements of the
-	 * origin graph are ignored for now.
+	 * Creates an adapter wrapping a rule implementing the given <code>mapping</code>. Mapped nodes are represented by
+	 * preserved nodes in the rule. Unmapped elements only appearing in the image graph are represented as created nodes.
+	 * Unmapped elements of the origin graph are ignored for now.
 	 * <p>
 	 * Note: The rule implementing the mapping is created during initialization. Later changes to the mapping are not
 	 * reflected by the adapter.
@@ -40,9 +40,9 @@ public class MappingRuleAdapter extends HenshinRuleAdapter {
 		super(engine);
 		originToRuleMap = new HashMap<>();
 		imageToRuleMap = new HashMap<>();
-		rule = createRule(mapping);		
+		rule = createRule(mapping);
 	}
-	
+
 	/**
 	 * Returns a map between the nodes of the origin graph of the {@link ModelGraphMapping} used to create the rule
 	 * represented by this adapter and their counterpart {@link Node nodes} in the rule.
@@ -62,15 +62,16 @@ public class MappingRuleAdapter extends HenshinRuleAdapter {
 	public Map<ModelNode, Node> getImageToRuleMap() {
 		return imageToRuleMap;
 	}
-	
+
 	private Rule createRule(ModelGraphMapping modelGraphMapping) throws MalformedGraphException {
 		CModule cModule = new CModule("MRA");
 		CRule cRule = cModule.createRule("mappingBased");
 		ModelGraph imageGraph = modelGraphMapping.getImageGraph();
 		for (ModelNode node : imageGraph.getNodes()) {
 			CNode cNode = addModelNodeToRuleIfAbsent(node, cRule, modelGraphMapping);
+			ModelNode origin = (ModelNode) modelGraphMapping.getOrigin(node);
 			if (modelGraphMapping.getOrigin(node) != null) {
-				originToRuleMap.put(node, cNode.getNode());
+				originToRuleMap.put(origin, cNode.getNode());
 			}
 			imageToRuleMap.put(node, cNode.getNode());
 		}
@@ -79,7 +80,7 @@ public class MappingRuleAdapter extends HenshinRuleAdapter {
 		}
 		return cRule.getUnit();
 	}
-	
+
 	private void addModelEdgeToRule(ModelEdge edge, CRule cRule, ModelGraphMapping mapping)
 			throws MalformedGraphException, IllegalArgumentException {
 		EObject refObj = edge.getReferencedObject();
@@ -89,16 +90,16 @@ public class MappingRuleAdapter extends HenshinRuleAdapter {
 		Action edgeAction = createRuleAction(edge, mapping);
 		sourceCNode.createEdge(targetCNode, eReference, edgeAction);
 	}
-	
+
 	private CNode addModelNodeToRuleIfAbsent(ModelNode node, CRule cRule, ModelGraphMapping mapping) {
 		Action action = createRuleAction(node, mapping);
 		CNode cNode = addModelNodeToRuleIfAbsent(node, cRule, action);
 		return cNode;
 	}
-	
+
 	/**
-	 * Elements which can be mapped to the crossover point need to be preserved by rule applications. Otherwise they
-	 * need to be created.
+	 * Elements for which a mapping exists need to be represented as preserved nodes. Elements which only exist in the
+	 * image graph are represented as created nodes.
 	 * 
 	 * @param element element which should be represented in a rule
 	 * @param mapping mapping between crossover point and split part

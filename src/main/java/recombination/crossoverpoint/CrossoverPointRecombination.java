@@ -92,7 +92,7 @@ public class CrossoverPointRecombination implements IRecombinationStrategy {
 		ModelGraphToEmfModelConverter converter = new ModelGraphToEmfModelConverter();
 		EObject secondPartEmfModel = converter.createEmfModel(secondRecombinationPart);
 		EObject resultModelRoot = henshinAdapter.applyRule(secondPartEmfModel, null);
-		postProcessAttributes(cpToFirstRecombinationPart, henshinAdapter.getLastMatch(), henshinAdapter.getResultMatch(), henshinAdapter.getImageToRuleMap());
+		postProcessAttributes(cpToFirstRecombinationPart, henshinAdapter.getLastMatch(), henshinAdapter.getResultMatch(), henshinAdapter.getImageToRuleMap());		
 		return resultModelRoot;
 	}
 
@@ -105,10 +105,10 @@ public class CrossoverPointRecombination implements IRecombinationStrategy {
 	 * @throws RecombinationException if attributes differ although they should not
 	 */
 	private void postProcessAttributes(ModelGraphMapping cpToFirstRecombinationPart, Match match, Match resultMatch,
-			Map<ModelNode, Node> secondRecombinationPartToRuleMap) {
+			Map<ModelNode, Node> firstRecombinationPartToRuleMap) {
 		
-		for (ModelNode firstPartNode : secondRecombinationPartToRuleMap.keySet()) {
-			Node ruleNode = secondRecombinationPartToRuleMap.get(firstPartNode);
+		for (ModelNode firstPartNode : firstRecombinationPartToRuleMap.keySet()) {
+			Node ruleNode = firstRecombinationPartToRuleMap.get(firstPartNode);
 			// TODO post processing may only be needed for problem parts, however, this generic implementation does not care
 			// about problem parts. Anyways one would need to iterate over the cp to find the problem parts.
 			if (ruleNode.getAction().getType().equals(Action.Type.PRESERVE)) {
@@ -124,8 +124,18 @@ public class CrossoverPointRecombination implements IRecombinationStrategy {
 						Object secondAttrValue = secondParentObject.eGet(attribute);
 						if ((firstAttrValue == null && secondAttrValue != null)
 								|| firstAttrValue != null && !firstAttrValue.equals(secondAttrValue)) {
-							throw new RecombinationException("Attribute " + attribute
-									+ " of an identified element differs in recombined parts but no post processing is defined.");
+							throw new RecombinationException("Attribute\n" 
+								  + attribute
+									+ "\nof identified elements differs."
+									+ "\nFirst parent:\n"
+									+ firstParentObject
+									+ "\nValue:\n"
+									+ firstAttrValue
+									+ "\nSecond parent:\n"
+									+ secondParentObject
+									+ "\nValue:\n"
+									+ secondAttrValue
+									+ "\n");
 						}
 					}
 				}
