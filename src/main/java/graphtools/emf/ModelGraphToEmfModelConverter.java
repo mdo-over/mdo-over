@@ -18,10 +18,11 @@ public class ModelGraphToEmfModelConverter {
 	private final Map<EObject, ModelNode> emfObjectToOriginNodeMap = new HashMap<>();
 
 	/**
-	 * Creates a new EMF model from the given {@link ModelGraph graph}. The resulting model is made up of copies of the objects referenced
-	 * by the graph nodes. The copy of the object referenced by the root node of the graph will be returned as the root
-	 * of the new EMF model.
-	 * @param graph model graph to create an EMF model from 
+	 * Creates a new EMF model from the given {@link ModelGraph graph}. The resulting model is made up of copies of the
+	 * objects referenced by the graph nodes. The copy of the object referenced by the root node of the graph will be
+	 * returned as the root of the new EMF model.
+	 * 
+	 * @param graph model graph to create an EMF model from
 	 * 
 	 * @return the root object of the created model
 	 */
@@ -35,6 +36,11 @@ public class ModelGraphToEmfModelConverter {
 		for (ModelNode node : graph.getNodes()) {
 			EObject refObj = node.getReferencedObject();
 			EObject copy = copier.copy(refObj);
+			/*
+			 * TODO: After adding attributes to the ModelGraphElements this has not yet been updated. Not all attributes of a
+			 * referenced object should be included in the generated EMF model but only those which are explicitly mentioned
+			 * in the attributes of the respective ModelGraphElement.
+			 */
 			emfObjectToOriginNodeMap.put(copy, node);
 		}
 

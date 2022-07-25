@@ -5,8 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.henshin.interpreter.Change;
 import org.eclipse.emf.henshin.interpreter.EGraph;
 import org.eclipse.emf.henshin.interpreter.Engine;
@@ -50,8 +53,8 @@ public abstract class HenshinRuleAdapter {
 
 	/**
 	 * Applies the rule represented by this adapter to the given <code>emfModel</code>. A partial match can be specified
-	 * to enforce rule nodes to be mapped to specific objects of the model. Returns the root of the resulting EMF model
-	 * or <code>null</code> if the rule could not be applied.
+	 * to enforce rule nodes to be mapped to specific objects of the model. Returns the root of the resulting EMF model or
+	 * <code>null</code> if the rule could not be applied.
 	 * 
 	 * @param emfModel     model to apply the rule to
 	 * @param partialMatch a (partial) mapping of rule nodes to objects of the given model
@@ -65,7 +68,7 @@ public abstract class HenshinRuleAdapter {
 		Iterator<Match> it = engine.findMatches(rule, graph, partialMatch).iterator();
 		if (it.hasNext()) {
 			match = it.next();
-			resultMatch = new MatchImpl(rule, true); 
+			resultMatch = new MatchImpl(rule, true);
 			Change change = engine.createChange(rule, graph, match, resultMatch);
 			change.applyAndReverse();
 			List<EObject> roots = graph.getRoots();
@@ -76,10 +79,11 @@ public abstract class HenshinRuleAdapter {
 		}
 		return resultModel;
 	}
-	
+
 	/**
 	 * Returns a {@link Match} in the given <code>emfModel</code> for the rule represented by this adapter. Returns
 	 * <code>null</code> if no such match exists.
+	 * 
 	 * @param emfModel model to find a match in
 	 * 
 	 * @return a match for the rule or <code>null</code> if no match exists
@@ -95,16 +99,18 @@ public abstract class HenshinRuleAdapter {
 	}
 
 	/**
-	 * Returns the last {@link Match} created by a call to {@link #findMatch(EObject)} or {@link #applyRule(EObject, Match)}.
+	 * Returns the last {@link Match} created by a call to {@link #findMatch(EObject)} or
+	 * {@link #applyRule(EObject, Match)}.
 	 * 
 	 * @return the last match for the rule or <code>null</code> if no last match exists
 	 */
 	public Match getLastMatch() {
 		return match;
 	}
-	
+
 	/**
 	 * Returns the result match of the last {@link #applyRule(EObject, Match) application} of the rule of this adapter.
+	 * 
 	 * @return the result match of the last rule application or null if the last rule application was not successful
 	 */
 	public Match getResultMatch() {
@@ -119,11 +125,28 @@ public abstract class HenshinRuleAdapter {
 		CNode targetCNode = addModelNodeToRuleIfAbsent(edge.getTarget(), cRule, action);
 		sourceCNode.createEdge(targetCNode, eReference, action);
 	}
-	
+
+	/**
+	 * Add a rule node to the given rule representing the object referenced by the given node.
+	 * 
+	 * @param node {@link ModelNode} that needs to be represented in the rule	
+	 * @param cRule rule to extend
+	 * @param action action type of the added rule node
+	 * @return the added rule node
+	 */
 	protected CNode addModelNodeToRuleIfAbsent(ModelNode node, CRule cRule, Action action) {
 		CNode cNode = modelToRuleMap.get(node);
 		if (cNode == null) {
-			cNode = cRule.createNode(node.getReferencedObject().eClass(), action);
+			EObject refObj = node.getReferencedObject();
+			cNode = cRule.createNode(refObj.eClass(), action);
+			for (EAttribute attribute : node.getAttributes()) {
+				Object value = refObj.eGet(attribute);
+				String valueString = EcoreUtil.convertToString(attribute.getEAttributeType(), value);
+				if (attribute.getEAttributeType()  ==  EcorePackage.Literals.ESTRING) {
+					valueString = "\"" + valueString + "\"";
+				}
+				cNode.createAttribute(attribute, valueString, action);				
+			}
 			modelToRuleMap.put(node, cNode);
 		}
 		return cNode;

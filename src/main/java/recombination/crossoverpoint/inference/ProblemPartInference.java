@@ -1,12 +1,15 @@
 package recombination.crossoverpoint.inference;
 
+import java.io.IOException;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.henshin.interpreter.Engine;
 import org.eclipse.emf.henshin.interpreter.Match;
 import org.eclipse.emf.henshin.model.Node;
+import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 
 import graphtools.SubGraphConstructor;
 import graphtools.emf.GraphRuleAdapter;
@@ -96,7 +99,7 @@ public class ProblemPartInference implements IInferenceStrategy {
 			if (match == null) {
 				throw new RecombinationException("Problem parts of parents are not isomorph.");
 			}
-
+			
 			// TODO: Should we check if the match covers all problem elements of second split?
 
 			for (ModelNode cpNode : cpToFirstSplitPoint.getOriginGraph().getNodes()) {

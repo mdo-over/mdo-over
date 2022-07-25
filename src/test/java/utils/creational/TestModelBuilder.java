@@ -10,6 +10,7 @@ import metamodels.genericTestModel.GenericTestModelFactory;
 import metamodels.genericTestModel.GenericTestModelPackage;
 import metamodels.genericTestModel.Root;
 import metamodels.genericTestModel.X;
+import model.modelgraph.GraphConversionException;
 import model.modelgraph.GraphManipulationException;
 import model.modelgraph.ModelEdge;
 import model.modelgraph.ModelGraph;
@@ -39,6 +40,11 @@ public class TestModelBuilder {
 		A a = fac.createA();
 		ModelNode aNode = new ModelNode();
 		aNode.setReferencedObject(a);
+		try {
+			aNode.addAttribute(GenericTestModelPackage.Literals.A__VALUE);
+		} catch (GraphConversionException e) {
+			e.printStackTrace();
+		}
 		graph.addNode(aNode);
 		return aNode;
 	}	

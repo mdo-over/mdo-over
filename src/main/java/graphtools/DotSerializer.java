@@ -95,7 +95,9 @@ public class DotSerializer {
 		}
 		return builder.toString();
 	}
-
+	
+	// TODO: Attributes of ModelGraphElements not considered yet.
+	
 	private String toString(ModelNode node, boolean withLabel) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("\"");

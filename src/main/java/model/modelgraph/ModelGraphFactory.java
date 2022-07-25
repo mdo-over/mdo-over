@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
@@ -66,6 +68,16 @@ public class ModelGraphFactory {
 		if (refNodes.isEmpty()) {
 			node = new ModelNode();
 			node.setReferencedObject(object);
+			if (!(object instanceof EReference)) {
+				for (EAttribute attr : object.eClass().getEAllAttributes()) {
+					try {
+						node.addAttribute(attr);
+					} catch (GraphConversionException e) {
+						throw new IllegalStateException(
+								"Construction of the graph should not add invalid attributes.");
+					}
+				}
+			}			
 		} else if (refNodes.size() == 1) {
 			node = refNodes.iterator().next();
 		} else {

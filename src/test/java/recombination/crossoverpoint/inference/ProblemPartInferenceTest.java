@@ -73,6 +73,27 @@ class ProblemPartInferenceTest extends GraphTest {
 				() -> inference.inferCrossoverPoint(firstSplitBuilder.getSplit(), secondSplitBuilder.getSplit()));
 		assertTrue(e.getMessage().contains("not isomorph"));
 	}
+	
+	@Test
+	void test_SplitPointsDifferInProblemPartAttributeValues_InferenceFails() throws GraphManipulationException {
+		LinearTestModelBuilder firstCodomainBuilder = TestModelFactory.createLinearModel();
+		TestSplitBuilder firstSplitBuilder = new TestSplitBuilder(firstCodomainBuilder.graph);
+		firstSplitBuilder.extendBothDomainsBy(firstCodomainBuilder.rootToA);
+		firstSplitBuilder.extendBothDomainsBy(firstCodomainBuilder.aToX);
+
+		LinearTestModelBuilder secondCodomainBuilder = TestModelFactory.createLinearModel();
+		TestSplitBuilder secondSplitBuilder = new TestSplitBuilder(secondCodomainBuilder.graph);
+		secondCodomainBuilder.aNode.getReferencedObject().eSet(GenericTestModelPackage.Literals.A__VALUE, 2);
+		secondSplitBuilder.extendBothDomainsBy(secondCodomainBuilder.rootToA);
+		secondSplitBuilder.extendBothDomainsBy(secondCodomainBuilder.aToX);		
+
+		Set<EReference> problemEdgeTypes = new HashSet<>();
+		problemEdgeTypes.add(GenericTestModelPackage.Literals.ROOT__ACONT);
+		ProblemPartInference inference = new ProblemPartInference(problemEdgeTypes, engine);
+		RecombinationException e = assertThrows(RecombinationException.class,
+				() -> inference.inferCrossoverPoint(firstSplitBuilder.getSplit(), secondSplitBuilder.getSplit()));
+		assertTrue(e.getMessage().contains("not isomorph"));
+	}
 
 	@Test
 	void test_EqualSplitsNoProblemPartDefined_CrossoverPointContainsRoot() throws GraphManipulationException {

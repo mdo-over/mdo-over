@@ -109,8 +109,8 @@ public class CrossoverPointRecombination implements IRecombinationStrategy {
 		
 		for (ModelNode firstPartNode : firstRecombinationPartToRuleMap.keySet()) {
 			Node ruleNode = firstRecombinationPartToRuleMap.get(firstPartNode);
-			// TODO post processing may only be needed for problem parts, however, this generic implementation does not care
-			// about problem parts. Anyways one would need to iterate over the cp to find the problem parts.
+			// TODO post processing may only be needed for solution parts, however, this generic implementation does not care
+			// about parts. Anyways one would need to iterate over the cp to find the problem parts.
 			if (ruleNode.getAction().getType().equals(Action.Type.PRESERVE)) {
 				EObject secondParentObject = match.getNodeTarget(ruleNode);
 				EObject firstParentObject = firstPartNode.getReferencedObject();	
