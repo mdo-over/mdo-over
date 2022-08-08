@@ -129,8 +129,8 @@ public abstract class HenshinRuleAdapter {
 	/**
 	 * Add a rule node to the given rule representing the object referenced by the given node.
 	 * 
-	 * @param node {@link ModelNode} that needs to be represented in the rule	
-	 * @param cRule rule to extend
+	 * @param node   {@link ModelNode} that needs to be represented in the rule
+	 * @param cRule  rule to extend
 	 * @param action action type of the added rule node
 	 * @return the added rule node
 	 */
@@ -140,12 +140,16 @@ public abstract class HenshinRuleAdapter {
 			EObject refObj = node.getReferencedObject();
 			cNode = cRule.createNode(refObj.eClass(), action);
 			for (EAttribute attribute : node.getAttributes()) {
-				Object value = refObj.eGet(attribute);
-				String valueString = EcoreUtil.convertToString(attribute.getEAttributeType(), value);
-				if (attribute.getEAttributeType()  ==  EcorePackage.Literals.ESTRING) {
-					valueString = "\"" + valueString + "\"";
+				// Generally it should be safe to ignore unset attributes. In case we need them at some point, a separate
+				// handling for null strings is already implemented to prevent "null" values.
+				if (refObj.eIsSet(attribute)) {
+					Object value = refObj.eGet(attribute);
+					String valueString = EcoreUtil.convertToString(attribute.getEAttributeType(), value);
+					if (attribute.getEAttributeType() == EcorePackage.Literals.ESTRING && valueString != null) {
+						valueString = "\"" + valueString + "\"";
+					}
+					cNode.createAttribute(attribute, valueString, action);
 				}
-				cNode.createAttribute(attribute, valueString, action);				
 			}
 			modelToRuleMap.put(node, cNode);
 		}

@@ -1,15 +1,12 @@
 package recombination.crossoverpoint.inference;
 
-import java.io.IOException;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.henshin.interpreter.Engine;
 import org.eclipse.emf.henshin.interpreter.Match;
 import org.eclipse.emf.henshin.model.Node;
-import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 
 import graphtools.SubGraphConstructor;
 import graphtools.emf.GraphRuleAdapter;
