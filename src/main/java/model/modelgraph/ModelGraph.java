@@ -159,6 +159,8 @@ public class ModelGraph {
 
 	/**
 	 * Returns the set of {@link ModelGraphElement elements} of the graph referencing the given object.
+	 * Iterating over the elements will first iterate over all nodes and then over all edges referencing the object in
+	 * the order of their insertion into the graph, respectively.
 	 * 
 	 * @param object object to look up
 	 * @return set of {@link ModelGraphElement elements} referencing the given object
@@ -192,8 +194,13 @@ public class ModelGraph {
 		return edges;
 	}
 
+	/**
+	 * Returns all elements of the graph. Iterating over the elements will first iterate over all nodes and then over 
+	 * all edges in the order of their insertion into the graph, respectively.
+	 * @return
+	 */
 	public Set<ModelGraphElement> getElements() {
-		Set<ModelGraphElement> elements = new HashSet<ModelGraphElement>();
+		Set<ModelGraphElement> elements = new LinkedHashSet<ModelGraphElement>();
 		Set<ModelNode> nodes = getNodes();
 		if (nodes != null) {
 			elements.addAll(nodes);
