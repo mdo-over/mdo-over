@@ -49,6 +49,10 @@ import split.SplitException;
 public class ContainmentSubtreeSplit implements ISplitStrategy {
 
 	private class EdgeCollector {
+		/**
+		 * The containment edges directly connected to the current split point (i.e., the part of the model which is already
+		 * distributed to both split parts). 
+		 */
 		List<ModelEdge> borderContainments = new ArrayList<>();
 		List<ModelEdge> solutionNonContainments = new ArrayList<>();
 		List<ModelEdge> problemNonContainments = new ArrayList<>();
@@ -287,7 +291,7 @@ public class ContainmentSubtreeSplit implements ISplitStrategy {
 		Set<ModelEdge> distributedEdges = new HashSet<>();
 		for (ModelEdge solutionEdge : solutionEdges) {
 			if (distributedEdges.contains(solutionEdge)) {
-				break;
+				continue;
 			}
 			SubGraphConstructor chosenPart = getPreferablePart(solutionEdge, firstPart, secondPart);
 			ModelNode source = solutionEdge.getSource();
