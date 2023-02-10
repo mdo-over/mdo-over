@@ -74,6 +74,7 @@ class ContainmentSubtreeSplitTest extends GraphTest {
 
 	@ParameterizedTest
 	@ValueSource(booleans = { true, false })
+	
 	void test_LinearContainmentSubtreeWithNonContainmentNoProblemPart_OnlyNonContainmentDistributed(boolean dynamic)
 			throws GraphManipulationException {
 
@@ -112,7 +113,7 @@ class ContainmentSubtreeSplitTest extends GraphTest {
 				linearBuilder.rootToA, linearBuilder.xNode, linearBuilder.aToX));
 		assertNotNull(areRepresentedInSingleDomain(split, xToA));
 	}
-
+	
 	@ParameterizedTest
 	@ValueSource(booleans = { true, false })
 	void test_ContainmentSubtreesAtRootNoProblemPart_ContainmentsDistributed(boolean dynamic)
@@ -203,7 +204,7 @@ class ContainmentSubtreeSplitTest extends GraphTest {
 
 		assertTrue(areRepresentedInBothDomains(split, twoLvlBuilder.rootNode));
 		ModelGraph firstSubtreeDomain = areRepresentedInSingleDomain(split, twoLvlBuilder.aNode, twoLvlBuilder.rootToA,
-				twoLvlBuilder.x1Node, twoLvlBuilder.aToX1, x1ToA, x1ToX2);
+				twoLvlBuilder.x1Node, twoLvlBuilder.aToX1, twoLvlBuilder.x2Node, twoLvlBuilder.aToX2, x1ToA, x1ToX2);
 		ModelGraph secondSubtreeDomain = areRepresentedInSingleDomain(split, twoLvlBuilder.bNode,
 				twoLvlBuilder.rootToB);
 		assertNotNull(firstSubtreeDomain);
@@ -245,7 +246,7 @@ class ContainmentSubtreeSplitTest extends GraphTest {
 	
 	@ParameterizedTest
 	@ValueSource(booleans = { true, false })
-	void test_ContainmentSubtreesWithCrossingNonContainmentOpposite_OneSplitPartContainsBothOpposite(boolean dynamic)
+	void test_ContainmentSubtreesWithCrossingNonContainmentOppositePair_OneSplitPartContainsOppositePair(boolean dynamic)
 			throws GraphManipulationException {
 		OneLevelModelBuilder oneLvlBuilder = TestModelFactory.createOneLevelModel();
 		ModelEdge aOppB = oneLvlBuilder.createAOppB(oneLvlBuilder.aNode, oneLvlBuilder.bNode);
@@ -261,6 +262,34 @@ class ContainmentSubtreeSplitTest extends GraphTest {
 
 		ModelGraph crossRefDomain = areRepresentedInSingleDomain(split, aOppB, bOppA);
 		assertNotNull(crossRefDomain);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(booleans = { true, false })
+	void test_ContainmentSubtreesWithMultipleCrossingNonContainmentOppositePairs_EachPairOfOppositesIsContainedInSomeSplitPart(boolean dynamic)
+			throws GraphManipulationException {
+		OneLevelModelBuilder oneLvlBuilder = TestModelFactory.createOneLevelModel();
+		ModelEdge aOppB = oneLvlBuilder.createAOppB(oneLvlBuilder.aNode, oneLvlBuilder.bNode);
+		ModelEdge bOppA = oneLvlBuilder.createBOppA(oneLvlBuilder.bNode, oneLvlBuilder.aNode);
+		ModelNode a2 = oneLvlBuilder.createA();
+		ModelEdge rootToA2 = oneLvlBuilder.createRootToA(oneLvlBuilder.rootNode, a2);
+		ModelNode b2 = oneLvlBuilder.createB();
+		ModelEdge rootToB2 = oneLvlBuilder.createRootToB(oneLvlBuilder.rootNode, b2);
+		ModelEdge aOppB2 = oneLvlBuilder.createAOppB(a2, b2);
+		ModelEdge b2OppA = oneLvlBuilder.createBOppA(b2, a2);
+
+		// First two are needed to distribute containment subtrees (rootToA, rootToB).
+		when(rngMock.nextDouble()).thenReturn(0d);
+		ContainmentSubtreeSplit splitStr = new ContainmentSubtreeSplit(rngMock, 0.5, null);
+
+		CoSpan split = splitStr.split(oneLvlBuilder.graph);
+		saveGraph(split.getFirstDomain(), "firstDomain", false);
+		saveGraph(split.getSecondDomain(), "secondDomain");
+
+		ModelGraph crossRefDomain = areRepresentedInSingleDomain(split, aOppB, bOppA);
+		ModelGraph crossRefDomain2 = areRepresentedInSingleDomain(split, aOppB2, b2OppA);
+		assertNotNull(crossRefDomain);
+		assertNotNull(crossRefDomain2);
 	}
 
 	@ParameterizedTest
