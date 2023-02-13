@@ -42,7 +42,7 @@ public class TestModelBuilder {
 		aNode.setReferencedObject(a);
 		try {
 			aNode.addAttribute(GenericTestModelPackage.Literals.A__VALUE);
-		} catch (GraphConversionException e) {
+		} catch (GraphManipulationException e) {
 			e.printStackTrace();
 		}
 		graph.addNode(aNode);

@@ -72,7 +72,7 @@ public class ModelGraphFactory {
 				for (EAttribute attr : object.eClass().getEAllAttributes()) {
 					try {
 						node.addAttribute(attr);
-					} catch (GraphConversionException e) {
+					} catch (GraphManipulationException e) {
 						throw new IllegalStateException(
 								"Construction of the graph should not add invalid attributes.");
 					}

@@ -1,10 +1,13 @@
 package utils.creational;
 
+import org.eclipse.emf.ecore.EAttribute;
+
 import graphtools.SubGraphConstructor;
 import model.CoSpan;
 import model.ModelGraphMapping;
 import model.Span;
 import model.modelgraph.GraphManipulationException;
+import model.modelgraph.ModelEdge;
 import model.modelgraph.ModelGraph;
 import model.modelgraph.ModelGraphElement;
 
@@ -44,12 +47,46 @@ public class TestCrossoverPointBuilder extends SubGraphBasedBuilder {
 		ModelGraphElement firstSplitElementInFirstSplitPoint = firstSplit.getPullbackToFirstDomain()
 				.getOrigin(firstSplitElementInFirstPart);
 		ModelGraphElement domainCopy = addElement(domainConstr, firstSplitElementInFirstSplitPoint);
+		
 		ModelGraphElement secondSplitElementInFirstPart = secondSplit.getFirstDomainToCodomain()
 				.getOrigin(secondSplitElement);
 		ModelGraphElement secondSplitElementInFirstSplitPoint = secondSplit.getPullbackToFirstDomain()
 				.getOrigin(secondSplitElementInFirstPart);
 		domainToSecondCoDomain.addMapping(domainCopy, secondSplitElementInFirstSplitPoint);
 		return this;
+	}
+	
+	/**
+	 * Removes the given attribute from the element of the crossover point mapped to the given element.
+	 * The given element must have been {@link #identify(ModelGraphElement, ModelGraphElement) identified} before.
+	 * @param element an element of the codomain of one of the splits
+	 * @param attribute an attribute of the given element
+	 * @return
+	 */
+	public TestCrossoverPointBuilder unidentifyAttribute(ModelGraphElement element, EAttribute attribute) {
+		ModelGraphElement crossoverPointElement = getDomainElementMappedToSplitElement(firstSplit, element);
+		if (crossoverPointElement == null) {
+			getDomainElementMappedToSplitElement(secondSplit, element);
+		}
+		if (crossoverPointElement == null) {
+			throw new IllegalArgumentException("The given element is not contained in the crossover point.");
+		}
+		crossoverPointElement.removeAttribute(attribute);
+		return this;
+	}
+	
+	private ModelGraphElement getDomainElementMappedToSplitElement(CoSpan split, ModelGraphElement splitElement) {
+		ModelGraphElement splitPartElement = split.getFirstDomainToCodomain().getOrigin(splitElement);
+		if (splitPartElement == null) {
+			throw new IllegalArgumentException("The given element is not contained in both split parts.");
+		}
+		ModelGraphElement splitPointElement = split.getPullbackToFirstDomain().getOrigin(splitPartElement);
+		if (splitPointElement == null) {
+			// This should not happen if the pullback calculation is correct.
+			throw new IllegalArgumentException("The given element is contained in both split parts but not in the "
+					+ "split point.");
+		}
+		return domainConstr.getMapping().getOrigin(splitPointElement);		
 	}
 
 	public Span getCrossoverPoint() {

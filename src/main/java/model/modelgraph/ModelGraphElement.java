@@ -2,6 +2,7 @@ package model.modelgraph;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -11,7 +12,7 @@ public abstract class ModelGraphElement {
 
 	private String name;
 	private EObject referencedObject;
-	private final Set<EAttribute> attributes = new HashSet<EAttribute>();
+	private final Set<EAttribute> attributes = new LinkedHashSet<EAttribute>();
 
 	public ModelGraphElement() {
 	}
@@ -49,15 +50,16 @@ public abstract class ModelGraphElement {
 		this.referencedObject = referencedObject;
 	}
 	
+	//TODO: In the long run attributes might need to be represented more explicitly. 
 	public Set<EAttribute> getAttributes() {
 		return Collections.unmodifiableSet(attributes);
 	}
 	
-	public void addAttribute(EAttribute attribute) throws GraphConversionException {
+	public void addAttribute(EAttribute attribute) throws GraphManipulationException {
 		if (getReferencedObject().eClass().getEAllAttributes().contains(attribute)) {
 			attributes.add(attribute);
 		} else {
-			throw new GraphConversionException("Attribute is not part of referenced object");
+			throw new GraphManipulationException("Attribute is not part of referenced object");
 		}
 	}
 	
