@@ -50,7 +50,11 @@ public abstract class ModelGraphElement {
 		this.referencedObject = referencedObject;
 	}
 	
-	//TODO: In the long run attributes might need to be represented more explicitly. 
+	//TODO: In the long run attributes might need to be represented more explicitly.
+	/**
+	 * Attributes of the referenced object which should also be considered attributes of this graph element.
+	 * @return attributes of this element
+	 */
 	public Set<EAttribute> getAttributes() {
 		return Collections.unmodifiableSet(attributes);
 	}

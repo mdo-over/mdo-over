@@ -1,8 +1,11 @@
 package graphtools.emf;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.henshin.interpreter.Engine;
@@ -26,9 +29,12 @@ public class MappingRuleAdapter extends HenshinRuleAdapter {
 	private final Map<ModelNode, Node> imageToRuleMap;
 
 	/**
-	 * Creates an adapter wrapping a rule implementing the given <code>mapping</code>. Mapped nodes are represented by
-	 * preserved nodes in the rule. Unmapped elements only appearing in the image graph are represented as created nodes.
-	 * Unmapped elements of the origin graph are ignored for now.
+	 * Creates an adapter wrapping a rule implementing the given <code>mapping</code>. Mapped elements are represented by
+	 * preserved elements in the rule. Unmapped nodes and edges only appearing in the image graph are represented as 
+	 * created elements. However, unmapped attributes {@link ModelGraphElement#getAttributes() attributes} of the image
+	 * graph will not be considered if their containing element is mapped, i.e, an attribute may not be created in a 
+	 * preserved element. Unmapped elements of the origin graph are completely ignored for now.
+	
 	 * <p>
 	 * Note: The rule implementing the mapping is created during initialization. Later changes to the mapping are not
 	 * reflected by the adapter.
@@ -63,17 +69,13 @@ public class MappingRuleAdapter extends HenshinRuleAdapter {
 		return imageToRuleMap;
 	}
 
+	//TODO: Needs to be checked. CP nodes may contain less attributes as their counterpart in a split point.
 	private Rule createRule(ModelGraphMapping modelGraphMapping) throws MalformedGraphException {
 		CModule cModule = new CModule("MRA");
 		CRule cRule = cModule.createRule("mappingBased");
 		ModelGraph imageGraph = modelGraphMapping.getImageGraph();
 		for (ModelNode node : imageGraph.getNodes()) {
-			CNode cNode = addModelNodeToRuleIfAbsent(node, cRule, modelGraphMapping);
-			ModelNode origin = (ModelNode) modelGraphMapping.getOrigin(node);
-			if (modelGraphMapping.getOrigin(node) != null) {
-				originToRuleMap.put(origin, cNode.getNode());
-			}
-			imageToRuleMap.put(node, cNode.getNode());
+			addModelNodeToRuleIfAbsent(node, cRule, modelGraphMapping);			
 		}
 		for (ModelEdge edge : imageGraph.getEdges()) {
 			addModelEdgeToRule(edge, cRule, modelGraphMapping);
@@ -92,8 +94,21 @@ public class MappingRuleAdapter extends HenshinRuleAdapter {
 	}
 
 	private CNode addModelNodeToRuleIfAbsent(ModelNode node, CRule cRule, ModelGraphMapping mapping) {
+		ModelNode originNode = (ModelNode) mapping.getOrigin(node);
 		Action action = createRuleAction(node, mapping);
-		CNode cNode = addModelNodeToRuleIfAbsent(node, cRule, action);
+		Set<EAttribute> ignoredAttributes = new HashSet<>();
+		if (action.getType() == Action.Type.PRESERVE) {
+			for (EAttribute attribute : node.getAttributes()) {
+				if (!originNode.getAttributes().contains(attribute)) {
+					ignoredAttributes.add(attribute);
+				}
+			}
+		}
+		CNode cNode = addModelNodeToRuleIfAbsent(node, ignoredAttributes, cRule, action);
+		if (originNode != null) {
+			originToRuleMap.put(originNode, cNode.getNode());
+		}
+		imageToRuleMap.put(node, cNode.getNode());
 		return cNode;
 	}
 

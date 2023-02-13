@@ -1,5 +1,6 @@
 package graphtools.emf;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ public class GraphRuleAdapter extends HenshinRuleAdapter {
 		CRule cRule = cModule.createRule("graphBased");
 		Action action = new Action(Action.Type.PRESERVE);
 		for (ModelNode node : graph.getNodes()) {
-			CNode cNode = addModelNodeToRuleIfAbsent(node, cRule, action);
+			CNode cNode = addModelNodeToRuleIfAbsent(node, Collections.emptySet(), cRule, action);
 			graphToRuleMap.put(node, cNode.getNode());
 		}
 		for (ModelEdge edge : graph.getEdges()) {

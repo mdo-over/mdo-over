@@ -1,9 +1,12 @@
 package graphtools.emf;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
@@ -121,25 +124,30 @@ public abstract class HenshinRuleAdapter {
 			throws MalformedGraphException, IllegalArgumentException {
 		EObject refObj = edge.getReferencedObject();
 		EReference eReference = (EReference) refObj;
-		CNode sourceCNode = addModelNodeToRuleIfAbsent(edge.getSource(), cRule, action);
-		CNode targetCNode = addModelNodeToRuleIfAbsent(edge.getTarget(), cRule, action);
+		CNode sourceCNode = addModelNodeToRuleIfAbsent(edge.getSource(), Collections.emptySet(), cRule, action);
+		CNode targetCNode = addModelNodeToRuleIfAbsent(edge.getTarget(), Collections.emptySet(), cRule, action);
 		sourceCNode.createEdge(targetCNode, eReference, action);
 	}
 
 	/**
 	 * Add a rule node to the given rule representing the object referenced by the given node.
+	 * A set of ignored attributes can be specified which will not be considered in this rule for the given node.
 	 * 
 	 * @param node   {@link ModelNode} that needs to be represented in the rule
+	 * @param ignoredAttributes attributes not considered for the given node
 	 * @param cRule  rule to extend
 	 * @param action action type of the added rule node
 	 * @return the added rule node
 	 */
-	protected CNode addModelNodeToRuleIfAbsent(ModelNode node, CRule cRule, Action action) {
+	protected CNode addModelNodeToRuleIfAbsent(ModelNode node, Set<EAttribute> ignoredAttributes, CRule cRule, Action action) {
 		CNode cNode = modelToRuleMap.get(node);
 		if (cNode == null) {
 			EObject refObj = node.getReferencedObject();
 			cNode = cRule.createNode(refObj.eClass(), action);
-			for (EAttribute attribute : node.getAttributes()) {
+			Set<EAttribute> consideredAttributes = node.getAttributes().stream()
+					.filter(a -> !ignoredAttributes.contains(a))
+					.collect(Collectors.toSet());
+			for (EAttribute attribute : consideredAttributes) {
 				Object value = refObj.eGet(attribute);
 				String valueString = EcoreUtil.convertToString(attribute.getEAttributeType(), value);
 				if (attribute.getEAttributeType() == EcorePackage.Literals.ESTRING && valueString != null) {
