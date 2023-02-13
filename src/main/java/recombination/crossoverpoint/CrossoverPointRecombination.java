@@ -24,6 +24,24 @@ import recombination.RecombinationException;
 import recombination.crossoverpoint.inference.IInferenceStrategy;
 import recombination.crossoverpoint.postprocessing.IAttributeProcessor;
 
+/**
+ * A recombination strategy based on the notion of a crossover point as discussed in the papers  
+ * <a href="https://link.springer.com/chapter/10.1007/978-3-031-09843-7_6">A Generic Construction for Crossovers of 
+ * Graph-Like Structures</a> and <a href="https://dl.acm.org/doi/abs/10.1145/3550356.3561603">Towards a configurable
+ * crossover operator for model-driven optimization</a>. * 
+ * In short, the crossover point specifies which model elements should be identified when two parts of the given 
+ * parent models are recombined. 
+ * <p>
+ * An {@link IInferenceStrategy} needs to be provided specifying the desired crossover point.
+ * A crossover point may contain {@link ModelNode}s for which the respective original nodes in the parents differ with
+ * regard to their attribute values. Additionally, attribute values might depend on the underlying model (e.g., derived
+ * attributes). For these cases an {@link IAttributeProcessor} needs to specify how the respective attribute values can
+ * be calculated for the offspring of the recombination.
+ * A Henshin engine needs to be provided as graph transformation rules are used to recombine model parts.  
+ *   
+ * @author S. John
+ *
+ */
 public class CrossoverPointRecombination implements IRecombinationStrategy {
 
 	private IInferenceStrategy crossoverPointStr;
@@ -92,19 +110,24 @@ public class CrossoverPointRecombination implements IRecombinationStrategy {
 		ModelGraphToEmfModelConverter converter = new ModelGraphToEmfModelConverter();
 		EObject secondPartEmfModel = converter.createEmfModel(secondRecombinationPart);
 		EObject resultModelRoot = henshinAdapter.applyRule(secondPartEmfModel, null);
-		postProcessAttributes(cpToFirstRecombinationPart, henshinAdapter.getLastMatch(), henshinAdapter.getResultMatch(), henshinAdapter.getImageToRuleMap());		
+		if (resultModelRoot == null) {
+			throw new InvalidRecombinationRuleException("Rule performing recombination could not be applied to second recombination part.");
+		}
+		postProcessAttributes(henshinAdapter.getLastMatch(), henshinAdapter.getResultMatch(), henshinAdapter.getImageToRuleMap());		
 		return resultModelRoot;
 	}
 
 	/**
 	 * As nodes of a crossover point may have differing attribute values in the originating split parts post processing
-	 * of attributes may be needed.
+	 * of attributes may be needed. The specified {@link IAttributeProcessor} will be applied to all 
+	 * {@link EAttribute}s accepted by it. Attribute values are only adapted in the model of the second recombination
+	 * part because it serves as the offspring model (the change rule is applied to it).
 	 * 
 	 * @param match                           mapping of rule nodes to nodes of the second recombination part
 	 * @param firstRecombinationPartToRuleMap mapping of nodes of the first recombination part to rule nodes
 	 * @throws RecombinationException if attributes differ although they should not
 	 */
-	private void postProcessAttributes(ModelGraphMapping cpToFirstRecombinationPart, Match match, Match resultMatch,
+	private void postProcessAttributes(Match match, Match resultMatch,
 			Map<ModelNode, Node> firstRecombinationPartToRuleMap) {
 		
 		for (ModelNode firstPartNode : firstRecombinationPartToRuleMap.keySet()) {
@@ -118,6 +141,7 @@ public class CrossoverPointRecombination implements IRecombinationStrategy {
 					if (attributeProcessor.acceptsAttribute(attribute)) {
 						Object value = attributeProcessor.processAttribute(firstParentObject, secondParentObject,
 								attribute);
+						// The second recombination part will be returned as offspring
 						secondParentObject.eSet(attribute, value);
 					} else {
 						Object firstAttrValue = firstParentObject.eGet(attribute);
