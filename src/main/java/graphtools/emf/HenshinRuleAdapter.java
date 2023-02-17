@@ -20,6 +20,8 @@ import org.eclipse.emf.henshin.interpreter.Match;
 import org.eclipse.emf.henshin.interpreter.impl.EGraphImpl;
 import org.eclipse.emf.henshin.interpreter.impl.MatchImpl;
 import org.eclipse.emf.henshin.model.Action;
+import org.eclipse.emf.henshin.model.Attribute;
+import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.compact.CNode;
 import org.eclipse.emf.henshin.model.compact.CRule;
@@ -153,7 +155,12 @@ public abstract class HenshinRuleAdapter {
 				if (attribute.getEAttributeType() == EcorePackage.Literals.ESTRING && valueString != null) {
 					valueString = "\"" + valueString + "\"";
 				}
-				cNode.createAttribute(attribute, valueString, action);
+				Attribute henshinAttribute = HenshinFactory.eINSTANCE.createAttribute(cNode.getNode(), attribute, valueString);
+				henshinAttribute.setAction(action);
+				cNode.getNode().getAttributes().add(henshinAttribute);
+				
+				// CNode.createAttribute() is bugged as it does not allow NULL as a value
+				// cNode.createAttribute(attribute, valueString, action);
 			}
 			modelToRuleMap.put(node, cNode);
 		}
