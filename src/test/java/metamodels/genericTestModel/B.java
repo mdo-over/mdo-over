@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link metamodels.genericTestModel.B#getB_to_a <em>Bto a</em>}</li>
  *   <li>{@link metamodels.genericTestModel.B#getB_opp_a <em>Bopp a</em>}</li>
+ *   <li>{@link metamodels.genericTestModel.B#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see metamodels.genericTestModel.GenericTestModelPackage#getB()
@@ -67,5 +68,27 @@ public interface B extends EObject {
 	 * @generated
 	 */
 	void setB_opp_a(A value);
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see metamodels.genericTestModel.GenericTestModelPackage#getB_Name()
+	 * @model
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link metamodels.genericTestModel.B#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
 
 } // B

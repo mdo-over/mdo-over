@@ -195,13 +195,22 @@ public interface GenericTestModelPackage extends EPackage {
 	int B__BOPP_A = 1;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int B__NAME = 2;
+
+	/**
 	 * The number of structural features of the '<em>B</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int B_FEATURE_COUNT = 2;
+	int B_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>B</em>' class.
@@ -387,6 +396,17 @@ public interface GenericTestModelPackage extends EPackage {
 	EReference getB_B_opp_a();
 
 	/**
+	 * Returns the meta object for the attribute '{@link metamodels.genericTestModel.B#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see metamodels.genericTestModel.B#getName()
+	 * @see #getB()
+	 * @generated
+	 */
+	EAttribute getB_Name();
+
+	/**
 	 * Returns the meta object for class '{@link metamodels.genericTestModel.X <em>X</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -545,6 +565,14 @@ public interface GenericTestModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference B__BOPP_A = eINSTANCE.getB_B_opp_a();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute B__NAME = eINSTANCE.getB_Name();
 
 		/**
 		 * The meta object literal for the '{@link metamodels.genericTestModel.impl.XImpl <em>X</em>}' class.

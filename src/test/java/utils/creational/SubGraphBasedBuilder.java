@@ -18,6 +18,7 @@ public class SubGraphBasedBuilder {
 		} else {
 			throw new GraphManipulationException("Unknown element type");
 		}
+		// Set the root of the subgraph if root has been added
 		ModelNode codomainRoot = domainConstructor.getCompleteGraph().getRoot();
 		ModelGraphElement rootCopy = domainConstructor.getMapping().getOrigin(codomainRoot);
 		if (rootCopy != null) {

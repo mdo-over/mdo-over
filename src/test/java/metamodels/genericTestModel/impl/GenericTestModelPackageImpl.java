@@ -225,6 +225,16 @@ public class GenericTestModelPackageImpl extends EPackageImpl implements Generic
 	 * @generated
 	 */
 	@Override
+	public EAttribute getB_Name() {
+		return (EAttribute)bEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getX() {
 		return xEClass;
 	}
@@ -301,6 +311,7 @@ public class GenericTestModelPackageImpl extends EPackageImpl implements Generic
 		bEClass = createEClass(B);
 		createEReference(bEClass, B__BTO_A);
 		createEReference(bEClass, B__BOPP_A);
+		createEAttribute(bEClass, B__NAME);
 
 		xEClass = createEClass(X);
 		createEReference(xEClass, X__XTO_A);
@@ -351,6 +362,7 @@ public class GenericTestModelPackageImpl extends EPackageImpl implements Generic
 		initEClass(bEClass, metamodels.genericTestModel.B.class, "B", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getB_B_to_a(), this.getA(), null, "b_to_a", null, 0, 1, metamodels.genericTestModel.B.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getB_B_opp_a(), this.getA(), this.getA_A_opp_b(), "b_opp_a", null, 0, 1, metamodels.genericTestModel.B.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getB_Name(), ecorePackage.getEString(), "name", null, 0, 1, metamodels.genericTestModel.B.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(xEClass, metamodels.genericTestModel.X.class, "X", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getX_X_to_a(), this.getA(), null, "x_to_a", null, 0, -1, metamodels.genericTestModel.X.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

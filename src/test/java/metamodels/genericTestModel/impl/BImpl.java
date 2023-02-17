@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link metamodels.genericTestModel.impl.BImpl#getB_to_a <em>Bto a</em>}</li>
  *   <li>{@link metamodels.genericTestModel.impl.BImpl#getB_opp_a <em>Bopp a</em>}</li>
+ *   <li>{@link metamodels.genericTestModel.impl.BImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -49,6 +50,26 @@ public class BImpl extends MinimalEObjectImpl.Container implements B {
 	 * @ordered
 	 */
 	protected A b_opp_a;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -177,6 +198,29 @@ public class BImpl extends MinimalEObjectImpl.Container implements B {
 	 * @generated
 	 */
 	@Override
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GenericTestModelPackage.B__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GenericTestModelPackage.B__BOPP_A:
@@ -215,6 +259,8 @@ public class BImpl extends MinimalEObjectImpl.Container implements B {
 			case GenericTestModelPackage.B__BOPP_A:
 				if (resolve) return getB_opp_a();
 				return basicGetB_opp_a();
+			case GenericTestModelPackage.B__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -232,6 +278,9 @@ public class BImpl extends MinimalEObjectImpl.Container implements B {
 				return;
 			case GenericTestModelPackage.B__BOPP_A:
 				setB_opp_a((A)newValue);
+				return;
+			case GenericTestModelPackage.B__NAME:
+				setName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -251,6 +300,9 @@ public class BImpl extends MinimalEObjectImpl.Container implements B {
 			case GenericTestModelPackage.B__BOPP_A:
 				setB_opp_a((A)null);
 				return;
+			case GenericTestModelPackage.B__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -267,8 +319,26 @@ public class BImpl extends MinimalEObjectImpl.Container implements B {
 				return b_to_a != null;
 			case GenericTestModelPackage.B__BOPP_A:
 				return b_opp_a != null;
+			case GenericTestModelPackage.B__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //BImpl

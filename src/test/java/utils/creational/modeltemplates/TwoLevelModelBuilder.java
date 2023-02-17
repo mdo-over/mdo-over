@@ -1,8 +1,10 @@
-package utils.creational;
+package utils.creational.modeltemplates;
 
 import model.modelgraph.GraphManipulationException;
 import model.modelgraph.ModelEdge;
 import model.modelgraph.ModelNode;
+import utils.creational.TestModelBuilder;
+import utils.creational.TestModelBuilder.TestModelCreationException;
 
 /**
  * A builder initializing a model with nodes:

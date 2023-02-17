@@ -61,6 +61,11 @@ public class TestModelBuilder {
 		B b = fac.createB();
 		ModelNode bNode = new ModelNode();
 		bNode.setReferencedObject(b);
+		try {
+			bNode.addAttribute(GenericTestModelPackage.Literals.B__NAME);
+		} catch (GraphManipulationException e) {
+			e.printStackTrace();
+		}
 		graph.addNode(bNode);
 		return bNode;
 	}
@@ -163,7 +168,7 @@ public class TestModelBuilder {
 	}
 	
 	@SuppressWarnings("serial")
-	protected class TestModelCreationException extends RuntimeException {
+	public class TestModelCreationException extends RuntimeException {
 	}
 	
 }

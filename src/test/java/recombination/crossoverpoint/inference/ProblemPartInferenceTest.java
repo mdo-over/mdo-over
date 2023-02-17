@@ -18,11 +18,11 @@ import model.modelgraph.ModelEdge;
 import model.modelgraph.ModelNode;
 import recombination.RecombinationException;
 import testinterfaces.GraphTest;
-import utils.creational.LinearTestModelBuilder;
-import utils.creational.OneLevelModelBuilder;
 import utils.creational.TestSplitBuilder;
-import utils.creational.TestModelFactory;
-import utils.creational.TwoLevelModelBuilder;
+import utils.creational.modeltemplates.LinearTestModelBuilder;
+import utils.creational.modeltemplates.OneLevelModelBuilder;
+import utils.creational.modeltemplates.TestModelFactory;
+import utils.creational.modeltemplates.TwoLevelModelBuilder;
 
 class ProblemPartInferenceTest extends GraphTest {
 

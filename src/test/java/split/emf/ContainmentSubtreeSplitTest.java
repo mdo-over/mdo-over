@@ -23,11 +23,11 @@ import model.modelgraph.ModelGraph;
 import model.modelgraph.ModelGraphElement;
 import model.modelgraph.ModelNode;
 import testinterfaces.GraphTest;
-import utils.creational.LinearTestModelBuilder;
-import utils.creational.OneLevelModelBuilder;
 import utils.creational.TestModelBuilder;
-import utils.creational.TestModelFactory;
-import utils.creational.TwoLevelModelBuilder;
+import utils.creational.modeltemplates.LinearTestModelBuilder;
+import utils.creational.modeltemplates.OneLevelModelBuilder;
+import utils.creational.modeltemplates.TestModelFactory;
+import utils.creational.modeltemplates.TwoLevelModelBuilder;
 
 class ContainmentSubtreeSplitTest extends GraphTest {
 

@@ -1,4 +1,4 @@
-package utils.creational;
+package utils.creational.modeltemplates;
 
 public class TestModelFactory {
 	

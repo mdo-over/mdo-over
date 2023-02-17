@@ -27,10 +27,10 @@ import recombination.crossoverpoint.inference.IInferenceStrategy;
 import recombination.crossoverpoint.postprocessing.DefaultAttributeProcessor;
 import recombination.crossoverpoint.postprocessing.IAttributeProcessor;
 import testinterfaces.GraphTest;
-import utils.creational.MinimalTestModelBuilder;
 import utils.creational.TestCrossoverPointBuilder;
-import utils.creational.TestModelFactory;
 import utils.creational.TestSplitBuilder;
+import utils.creational.modeltemplates.MinimalTestModelBuilder;
+import utils.creational.modeltemplates.TestModelFactory;
 
 class CrossoverPointRecombinationTest extends GraphTest {
 
