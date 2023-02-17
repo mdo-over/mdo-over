@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_YGd1wKyOEe2M6bW5nWOFpQ" name="MRA">
+  <imports href="../../metamodels/genericTestModel.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_YGd1wayOEe2M6bW5nWOFpQ" name="mappingBased">
+    <lhs xmi:id="_YGd1wqyOEe2M6bW5nWOFpQ" name="Lhs">
+      <nodes xmi:id="_YGd1w6yOEe2M6bW5nWOFpQ" outgoing="_YGd1yKyOEe2M6bW5nWOFpQ _YGd1yayOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//Root"/>
+      </nodes>
+      <nodes xmi:id="_YGd1xKyOEe2M6bW5nWOFpQ" incoming="_YGd1yKyOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//A"/>
+        <attributes xmi:id="_YGd1xayOEe2M6bW5nWOFpQ" value="0">
+          <type href="../../metamodels/genericTestModel.ecore#//A/value"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_YGd1xqyOEe2M6bW5nWOFpQ" incoming="_YGd1yayOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//B"/>
+        <attributes xmi:id="_YGd1x6yOEe2M6bW5nWOFpQ">
+          <type href="../../metamodels/genericTestModel.ecore#//B/name"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_YGd1yKyOEe2M6bW5nWOFpQ" source="_YGd1w6yOEe2M6bW5nWOFpQ" target="_YGd1xKyOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//Root/a_cont"/>
+      </edges>
+      <edges xmi:id="_YGd1yayOEe2M6bW5nWOFpQ" source="_YGd1w6yOEe2M6bW5nWOFpQ" target="_YGd1xqyOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//Root/b_cont"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_YGd1yqyOEe2M6bW5nWOFpQ" name="Rhs">
+      <nodes xmi:id="_YGd1y6yOEe2M6bW5nWOFpQ" outgoing="_YGd10KyOEe2M6bW5nWOFpQ _YGd10ayOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//Root"/>
+      </nodes>
+      <nodes xmi:id="_YGd1zKyOEe2M6bW5nWOFpQ" incoming="_YGd10KyOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//A"/>
+        <attributes xmi:id="_YGd1zayOEe2M6bW5nWOFpQ" value="0">
+          <type href="../../metamodels/genericTestModel.ecore#//A/value"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_YGd1zqyOEe2M6bW5nWOFpQ" incoming="_YGd10ayOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//B"/>
+        <attributes xmi:id="_YGd1z6yOEe2M6bW5nWOFpQ">
+          <type href="../../metamodels/genericTestModel.ecore#//B/name"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_YGd10KyOEe2M6bW5nWOFpQ" source="_YGd1y6yOEe2M6bW5nWOFpQ" target="_YGd1zKyOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//Root/a_cont"/>
+      </edges>
+      <edges xmi:id="_YGd10ayOEe2M6bW5nWOFpQ" source="_YGd1y6yOEe2M6bW5nWOFpQ" target="_YGd1zqyOEe2M6bW5nWOFpQ">
+        <type href="../../metamodels/genericTestModel.ecore#//Root/b_cont"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_YGd10qyOEe2M6bW5nWOFpQ" origin="_YGd1w6yOEe2M6bW5nWOFpQ" image="_YGd1y6yOEe2M6bW5nWOFpQ"/>
+    <mappings xmi:id="_YGd106yOEe2M6bW5nWOFpQ" origin="_YGd1xKyOEe2M6bW5nWOFpQ" image="_YGd1zKyOEe2M6bW5nWOFpQ"/>
+    <mappings xmi:id="_YGd11KyOEe2M6bW5nWOFpQ" origin="_YGd1xqyOEe2M6bW5nWOFpQ" image="_YGd1zqyOEe2M6bW5nWOFpQ"/>
+  </units>
+</henshin:Module>

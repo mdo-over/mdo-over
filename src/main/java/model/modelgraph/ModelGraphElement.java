@@ -70,4 +70,11 @@ public abstract class ModelGraphElement {
 	public void removeAttribute(EAttribute attribute) {
 		attributes.remove(attribute);
 	}
+	
+	/**
+	 * Removes all attributes currently considered by the element.
+	 */
+	public void clearAttributes() {
+		attributes.clear();
+	}
 }

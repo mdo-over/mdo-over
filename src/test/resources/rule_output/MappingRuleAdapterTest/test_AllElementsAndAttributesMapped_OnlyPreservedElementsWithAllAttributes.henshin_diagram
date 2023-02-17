@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmi:id="_brL5sKyOEe2ezc8ncJpX4A" type="Henshin" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_btPvMayOEe2ezc8ncJpX4A" type="2001" fontName="Segoe UI" italic="true" lineColor="0">
+    <children xmi:type="notation:DecorationNode" xmi:id="_btQWQKyOEe2ezc8ncJpX4A" type="5001"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_btQWQayOEe2ezc8ncJpX4A" type="7001"/>
+    <element xmi:type="henshin:Rule" href="test_AllElementsAndAttributesMapped_OnlyPreservedElementsWithAllAttributes.henshin#_YGd1wayOEe2M6bW5nWOFpQ"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_btPvMqyOEe2ezc8ncJpX4A" x="108" y="193"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_brL5sayOEe2ezc8ncJpX4A"/>
+  <element xmi:type="henshin:Module" href="test_AllElementsAndAttributesMapped_OnlyPreservedElementsWithAllAttributes.henshin#_YGd1wKyOEe2M6bW5nWOFpQ"/>
+</notation:Diagram>
