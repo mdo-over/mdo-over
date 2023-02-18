@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -21,7 +22,6 @@ import org.eclipse.emf.henshin.interpreter.impl.EGraphImpl;
 import org.eclipse.emf.henshin.interpreter.impl.MatchImpl;
 import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.Attribute;
-import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.compact.CNode;
 import org.eclipse.emf.henshin.model.compact.CRule;
@@ -151,19 +151,31 @@ public abstract class HenshinRuleAdapter {
 					.collect(Collectors.toSet());
 			for (EAttribute attribute : consideredAttributes) {
 				Object value = refObj.eGet(attribute);
-				String valueString = EcoreUtil.convertToString(attribute.getEAttributeType(), value);
-				if (attribute.getEAttributeType() == EcorePackage.Literals.ESTRING && valueString != null) {
-					valueString = "\"" + valueString + "\"";
-				}
-				Attribute henshinAttribute = HenshinFactory.eINSTANCE.createAttribute(cNode.getNode(), attribute, valueString);
-				henshinAttribute.setAction(action);
-				cNode.getNode().getAttributes().add(henshinAttribute);
-				
-				// CNode.createAttribute() is bugged as it does not allow NULL as a value
-				// cNode.createAttribute(attribute, valueString, action);
+				String valueString = henshifyAttributeValue(attribute.getEAttributeType(), value);
+				cNode.createAttribute(attribute, valueString, action);
 			}
 			modelToRuleMap.put(node, cNode);
 		}
 		return cNode;
+	}
+
+	/**
+	 * Henshin @link {@link Attribute}s store values as Strings. For attributes of type String values must additionally
+	 * be escaped by <code>\"</code> to distinguish between a literal <code>null</code> value and a String 
+	 * <code>"null"</code>.
+	 * @param attribute attribute to get the value from
+	 * @param value original value object
+	 * @return
+	 */
+	private String henshifyAttributeValue(EDataType type, Object value) {
+		String valueString = EcoreUtil.convertToString(type, value);
+		if (type == EcorePackage.Literals.ESTRING) {
+			if (valueString == null) {
+				valueString = "null";
+			} else {
+				valueString = "\"" + valueString + "\"";
+			}
+		}
+		return valueString;
 	}
 }
