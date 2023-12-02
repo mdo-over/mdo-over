@@ -13,9 +13,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import model.CoSpan;
-import model.modelgraph.ModelGraph;
-import model.modelgraph.ModelGraphFactory;
+import de.uni_marburg.mdo_over.model.CoSpan;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraphFactory;
+import de.uni_marburg.mdo_over.split.generic.RandomElementwiseSplit;
 import testinterfaces.GraphTest;
 import utils.ResourceUtils;
 

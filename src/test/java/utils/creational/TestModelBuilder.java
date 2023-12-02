@@ -4,17 +4,17 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+import de.uni_marburg.mdo_over.model.modelgraph.GraphConversionException;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelEdge;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelNode;
 import metamodels.genericTestModel.A;
 import metamodels.genericTestModel.B;
 import metamodels.genericTestModel.GenericTestModelFactory;
 import metamodels.genericTestModel.GenericTestModelPackage;
 import metamodels.genericTestModel.Root;
 import metamodels.genericTestModel.X;
-import model.modelgraph.GraphConversionException;
-import model.modelgraph.GraphManipulationException;
-import model.modelgraph.ModelEdge;
-import model.modelgraph.ModelGraph;
-import model.modelgraph.ModelNode;
 
 public class TestModelBuilder {
 	

@@ -4,8 +4,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-import model.modelgraph.ModelGraph;
-import model.modelgraph.ModelNode;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelNode;
 
 public class GraphHasNodeReferencingType extends TypeSafeMatcher<ModelGraph> {
 	

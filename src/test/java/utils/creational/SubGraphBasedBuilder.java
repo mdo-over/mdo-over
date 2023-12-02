@@ -1,10 +1,10 @@
 package utils.creational;
 
-import graphtools.SubGraphConstructor;
-import model.modelgraph.GraphManipulationException;
-import model.modelgraph.ModelEdge;
-import model.modelgraph.ModelGraphElement;
-import model.modelgraph.ModelNode;
+import de.uni_marburg.mdo_over.graphtools.SubGraphConstructor;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelEdge;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraphElement;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelNode;
 
 public class SubGraphBasedBuilder {
 	

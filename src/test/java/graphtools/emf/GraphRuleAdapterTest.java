@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.eclipse.emf.henshin.model.Node;
 import org.junit.jupiter.api.Test;
 
+import de.uni_marburg.mdo_over.graphtools.emf.GraphRuleAdapter;
 import metamodels.genericTestModel.A;
 import metamodels.genericTestModel.B;
 import metamodels.genericTestModel.GenericTestModelPackage;

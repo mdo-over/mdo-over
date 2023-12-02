@@ -11,12 +11,12 @@ import org.eclipse.emf.henshin.interpreter.util.EGraphIsomorphyChecker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 
-import graphtools.DotSerializer;
-import graphtools.emf.ModelGraphToEmfModelConverter;
-import model.modelgraph.ModelEdge;
-import model.modelgraph.ModelGraph;
-import model.modelgraph.ModelGraphElement;
-import model.modelgraph.ModelNode;
+import de.uni_marburg.mdo_over.graphtools.DotSerializer;
+import de.uni_marburg.mdo_over.graphtools.emf.ModelGraphToEmfModelConverter;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelEdge;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraphElement;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelNode;
 
 public abstract class GraphTest {
 

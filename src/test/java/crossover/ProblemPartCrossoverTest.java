@@ -14,10 +14,11 @@ import org.eclipse.emf.henshin.interpreter.Engine;
 import org.eclipse.emf.henshin.interpreter.impl.EngineImpl;
 import org.junit.jupiter.api.Test;
 
+import de.uni_marburg.mdo_over.crossover.ProblemPartCrossover;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraphFactory;
+import de.uni_marburg.mdo_over.recombination.RecombinationException;
 import metamodels.architectureCRA.ArchitectureCRAPackage;
-import model.modelgraph.ModelGraph;
-import model.modelgraph.ModelGraphFactory;
-import recombination.RecombinationException;
 import testinterfaces.GraphTest;
 import utils.ResourceUtils;
 

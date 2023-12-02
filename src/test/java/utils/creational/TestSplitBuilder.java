@@ -1,10 +1,10 @@
 package utils.creational;
 
-import graphtools.SubGraphConstructor;
-import model.CoSpan;
-import model.modelgraph.GraphManipulationException;
-import model.modelgraph.ModelGraph;
-import model.modelgraph.ModelGraphElement;
+import de.uni_marburg.mdo_over.graphtools.SubGraphConstructor;
+import de.uni_marburg.mdo_over.model.CoSpan;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraphElement;
 
 public class TestSplitBuilder extends SubGraphBasedBuilder {
 

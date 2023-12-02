@@ -10,11 +10,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import model.modelgraph.GraphConversionException;
-import model.modelgraph.GraphManipulationException;
-import model.modelgraph.ModelEdge;
-import model.modelgraph.ModelGraph;
-import model.modelgraph.ModelGraphFactory;
+import de.uni_marburg.mdo_over.graphtools.emf.ModelGraphToEmfModelConverter;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphConversionException;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelEdge;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraphFactory;
 import utils.ResourceUtils;
 
 class ModelGraphToEmfModelConverterTest {

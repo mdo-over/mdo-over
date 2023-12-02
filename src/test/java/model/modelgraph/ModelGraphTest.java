@@ -13,6 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelEdge;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraphElement;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelNode;
+
 class ModelGraphTest {
 	
 	ModelGraph graph;

@@ -7,11 +7,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import model.CoSpan.PullbackConstructionException;
-import model.modelgraph.GraphManipulationException;
-import model.modelgraph.ModelEdge;
-import model.modelgraph.ModelGraph;
-import model.modelgraph.ModelNode;
+import de.uni_marburg.mdo_over.model.CoSpan;
+import de.uni_marburg.mdo_over.model.ModelGraphMapping;
+import de.uni_marburg.mdo_over.model.CoSpan.PullbackConstructionException;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelEdge;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelNode;
 import testinterfaces.GraphTest;
 
 class CoSpanTest extends GraphTest {

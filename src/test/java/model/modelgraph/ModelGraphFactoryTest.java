@@ -6,6 +6,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraph;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelGraphFactory;
 import testinterfaces.GraphTest;
 import utils.ResourceUtils;
 

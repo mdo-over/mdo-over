@@ -11,12 +11,13 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.henshin.interpreter.impl.EngineImpl;
 import org.junit.jupiter.api.Test;
 
+import de.uni_marburg.mdo_over.model.Span;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelEdge;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelNode;
+import de.uni_marburg.mdo_over.recombination.RecombinationException;
+import de.uni_marburg.mdo_over.recombination.crossoverpoint.inference.ProblemPartInference;
 import metamodels.genericTestModel.GenericTestModelPackage;
-import model.Span;
-import model.modelgraph.GraphManipulationException;
-import model.modelgraph.ModelEdge;
-import model.modelgraph.ModelNode;
-import recombination.RecombinationException;
 import testinterfaces.GraphTest;
 import utils.creational.TestSplitBuilder;
 import utils.creational.modeltemplates.LinearTestModelBuilder;

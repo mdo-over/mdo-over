@@ -1,8 +1,8 @@
 package utils.creational.modeltemplates;
 
-import model.modelgraph.GraphManipulationException;
-import model.modelgraph.ModelEdge;
-import model.modelgraph.ModelNode;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelEdge;
+import de.uni_marburg.mdo_over.model.modelgraph.ModelNode;
 import utils.creational.TestModelBuilder;
 import utils.creational.TestModelBuilder.TestModelCreationException;
 

@@ -5,8 +5,9 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import graphtools.SubGraphConstructor;
-import model.modelgraph.GraphManipulationException;
+import de.uni_marburg.mdo_over.graphtools.SubGraphConstructor;
+import de.uni_marburg.mdo_over.graphtools.emf.MappingRuleAdapter;
+import de.uni_marburg.mdo_over.model.modelgraph.GraphManipulationException;
 import utils.creational.modeltemplates.OneLevelModelBuilder;
 import utils.creational.modeltemplates.TestModelFactory;
 
